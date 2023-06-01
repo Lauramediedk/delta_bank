@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<h2>Inbox</h2>
+<div>
+    {% for message in messages %}
+        <p>From: 
+        <a href="{% url 'bank_app:message_detail' message.pk %}">{{ message.sender }} - {{ message.timestamp }}</a></p>
+    {% endfor %}
+</div>
+
+<hr>
+
+<h2>Send Message</h2>
+<form method="post" action="{% url 'bank_app:message' %}">
+    {% csrf_token %}
+    <fieldset>
+        {{ form.receiver }}
+        {{ form.content }}
+    </fieldset>
+    <input type="submit" value="Send message"/>
+</form>
+
+
+{% endblock main %}
